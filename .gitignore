@@ -1,0 +1,5 @@
+bin/
+jar/
+native/
+*.jar
+.settings/
