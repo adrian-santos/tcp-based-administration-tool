@@ -82,7 +82,7 @@ DESIGN SECTION
 
 There seem to be about 6 major classes that we'll need to implement. Some are more involved than others. 
 
-1.	Menu/Client Program - Essentially a main method, with any other needed private methods. This will need the menu to interact with the user through standard I/O (requirement). The menu needs to perform error checking on user input, and have a Quit option (requirement). Each of the 6 menu options will correlate to 1 ot 6 method calls to the Clients. The menu will probably also have to display mean server response time, which is just a method call to the clients. 
+1.	Menu/Client Program - Essentially a main method, with any other needed private methods. This will need the menu to interact with the user through standard I/O (requirement). The menu needs to perform error checking on the command line arguments (requirement). The menu needs to perform error checking on user input, and have a Quit option (requirement). Each of the 6 menu options will correlate to 1 to 6 method calls to the Clients. The menu will probably also have to display mean server response time, which is just a method call to the clients. 
 
 Skills: basic looping/condition checking/exception handling
 API: A main method, the first String arg is the hostname that the clients connect to.
