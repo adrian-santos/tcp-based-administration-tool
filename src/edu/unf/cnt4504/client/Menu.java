@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
  *  Date: 9/7/17
  */
 
-public class ClientProgram {
+public class Menu {
 	public static void main(String[] args) {
 
 		int command = 0; // user option

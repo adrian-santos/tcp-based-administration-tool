@@ -14,7 +14,7 @@ import java.net.Socket;
  */
 public class ChildServer implements Runnable {
 
-	private ServerSocket socket;
+	final private ServerSocket socket;
 	
 	/**
 	 * Constructs a new Child Server that will listen for a Client to connect on the given socket
