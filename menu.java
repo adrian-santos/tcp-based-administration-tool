@@ -7,8 +7,8 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-public class menu {
- public static void main(String []args) {
+public class Menu {
+ public static void main(String[] args) {
   
   int command = 0; //user option
   int loop; //Continue?
