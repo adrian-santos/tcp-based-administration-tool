@@ -30,6 +30,7 @@ public class ClientParallelizer {
         //Check Host name and ports they connect to
 
 
+
     }
     //Calculates the mean server response time and response for a given request
     long[] arrayTimes = new long[50];
