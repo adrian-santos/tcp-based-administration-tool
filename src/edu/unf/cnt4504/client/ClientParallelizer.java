@@ -16,6 +16,7 @@ import java.io.*;
 import java.util.*;
 
 public class ClientParallelizer {
+
     public static void main(String[] args){
 
         //Count clients
@@ -60,6 +61,7 @@ public class ClientParallelizer {
         return averageTime;
 
     }
+
 
 
 
