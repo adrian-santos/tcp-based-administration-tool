@@ -1,33 +1,35 @@
 package edu.unf.cnt4504.server;
 
+import edu.unf.cnt4504.Message;
+
 public class Responder {
     public getResponse (String message) {
 
 
         switch (message) {
 
-            case 1:
+            case Message.CURRENT_DATE_AND_TIME:
                 cmd = "date";
                 break;
 
 
-            case 2:
+            case Message.UPTIME:
                 cmd = "uptime";
                 break;
 
-            case 3:
+            case Message.MEMORY_USE:
                 cmd = "free";
                 break;
 
-            case 4:
+            case Message.NETSTAT:
                 cmd = "netstat";
                 break;
 
-            case 5:
+            case Message.CURRENT_USERS:
                 cmd = "who";
                 break;
 
-            case 6:
+            case Message.RUNNING_PROCESSES:
                 cmd = "ps -e";
                 break;
 
@@ -40,6 +42,7 @@ public class Responder {
         }
 
         someRuntime = Runtime.getRuntime();
+
         // Runs the process, gets the ouptut, and prints it on the client side
         sProcess = sRuntime.exec(cmd);
         stdInp = (new InputStreamReader(someProcess.getInputStream()));
