@@ -1,5 +1,9 @@
 package edu.unf.cnt4504.server;
-
+/*
+Response Generator/Responder - A class containing a method (and any other private helper methods) that will return the response to a 
+request. The server machine will have this class in memory, and this class should run various commands on the OS to find the appropriate
+information (like date & time and memory use).
+*/
 import edu.unf.cnt4504.Message;
 
 public class Responder {
