@@ -20,9 +20,9 @@ public class ClientParallelizer {
 
     public responseParallel(int hostAddress, int port, int client){
         //Check Host name and ports they connect to
-        this hostAddress = hostAddress;
-        this port = port;
-        this client = client;
+        this.hostAddress = hostAddress;
+        this.port = port;
+        this.client = client;
     }
     
     public countClients(){
