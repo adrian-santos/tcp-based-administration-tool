@@ -1,0 +1,15 @@
+Index: src/edu/unf/cnt4504/server/Responder.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/edu/unf/cnt4504/server/Responder.java	(date 1506528593000)
++++ src/edu/unf/cnt4504/server/Responder.java	(revision )
+@@ -3,6 +3,6 @@
+ public class Responder {
+ 
+     // hello world2
+-    //test 3
++
+ 
+ }
