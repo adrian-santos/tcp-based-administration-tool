@@ -14,26 +14,39 @@ Adrian Santos
 import java.lang.*;
 import java.io.*;
 import java.util.*;
+import java.net.*;
 
 public class ClientParallelizer {
 
-    public static void main(String[] args){
-
-        //Count clients
-        int clients = 0; //Change variable count
-        int clientCount = 0;
-
-
-        for(clients = 0; clients > clients.count; clients++){
-            clientCount += 1;
-        }
-
+    public responseParallel(int hostAddress, int port, int client){
         //Check Host name and ports they connect to
-
-
-
+        this hostAddress = hostAddress;
+        this port = port;
+        this client = client;
     }
+    
+    public countClients(){
+      //Count clients
+        int clients = 0; //Change variable count
+      
+        for(clients = 0; clients > clients.count; clients++){
+            clients += 1;
+        }
+        
+        System.out.println("The total number of clients is" + clients);
+    
+    }
+    
+    //Host name checker
+
+    
+    
+    
+    
+    
     //Calculates the mean server response time and response for a given request
+    
+     /* * * * * * * * Test Code 1 * * * * * * * */
     long[] arrayTimes = new long[50];
     int numTimes;
 
@@ -61,8 +74,32 @@ public class ClientParallelizer {
         return averageTime;
 
     }
+    
+    
+    
+    /* * * * * * * * Test Code 2 * * * * * * * */
+   long[] times;
+   int counter;
 
+	public threadTime(int n) {
+      times = new long[n];
+	  counter = 0;
+	}
 
-
+	public synchronized void add (long t) {
+		times[counter++] = t;
+	}
+	
+	
+	public double getAverage (int num) {
+		double avg = 0;
+		
+		for (int i = 0; i < num; i++)
+			avg += (double)times[i];
+	
+		   avg = avg / (double)times.length;
+		
+		return avg;
+	}	
 
 }
