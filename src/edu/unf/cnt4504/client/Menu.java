@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 
 /* This is the menu for the CNT4504 group project.
  *  The project's purpose is to demonstrate client-server communication.
- *  Written by: Kevan Johnston
+ *  Written by: Kevan Johnston and Adrian Santos
  *  Date: 9/7/17
  */
 
