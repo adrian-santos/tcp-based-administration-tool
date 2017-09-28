@@ -17,8 +17,8 @@ import java.util.*;
 import java.net.*;
 
 public class ClientParallelizer {
-
-    public responseParallel(int hostAddress, int port, int client){
+	
+    public ClientParallelizer(int hostAddress, int port, int client){
         //Check Host name and ports they connect to
         this.hostAddress = hostAddress;
         this.port = port;
@@ -29,7 +29,7 @@ public class ClientParallelizer {
       //Count clients
         int clients = 0; //Change variable count
       
-        for(clients = 0; clients > clients.count; clients++){
+        for(int i = 0; i > clients.count; i++){
             clients += 1;
         }
         
@@ -38,12 +38,13 @@ public class ClientParallelizer {
     }
     
     //Host name checker
+	public hostName(){
+	
+	
+	}
 
     
-    
-    
-    
-    
+   
     //Calculates the mean server response time and response for a given request
     
      /* * * * * * * * Test Code 1 * * * * * * * */
