@@ -1,100 +1,55 @@
 package edu.unf.cnt4504.server;
 
+import edu.unf.cnt4504.Message;
+
 public class Responder {
-    public getResponse (String Message) {
-        return getResponse;
+    public getResponse (String message) {
 
-        switch (caseNum) {
-            case 1:
-                someRuntime = Runtime.getRuntime();
+
+        switch (message) {
+
+            case Message.CURRENT_DATE_AND_TIME:
                 cmd = "date";
-
-                // Runs the process, gets the ouptut, and prints it on the client side
-                sProcess = sRuntime.exec(cmd);
-                stdInp = (new InputStreamReader(someProcess.getInputStream()));
-
-                // Sets the output to blank so that all previous outputs will not be concatenated
-                output = "";
                 break;
 
 
-            case 2:
-
-                // Creates a process for running processes
-                someRuntime = Runtime.getRuntime();
+            case Message.UPTIME:
                 cmd = "uptime";
-
-                // Runs the process, gets the ouptut, and prints it on the client side
-                sProcess = sRuntime.exec(cmd);
-                stdInp = (new InputStreamReader(someProcess.getInputStream()));
-
-
-                // Sets the output to blank so that all previous outputs will not be concatenated
-                output = "";
                 break;
 
-            case 3:
-
-                // Creates a process for running processes
-                someRuntime = Runtime.getRuntime();
+            case Message.MEMORY_USE:
                 cmd = "free";
-
-                // Runs the process, gets the ouptut, and prints it on the client side
-                sProcess = sRuntime.exec(cmd);
-                stdInp = (new InputStreamReader(someProcess.getInputStream()));
-
-                // Sets the output to blank so that all previous outputs will not be concatenated
-                output = "";
                 break;
 
-            case 4:
-
-                // Creates a process for running processes
-                someRuntime = Runtime.getRuntime();
+            case Message.NETSTAT:
                 cmd = "netstat";
-
-                // Runs the process, gets the ouptut, and prints it on the client side
-                sProcess = sRuntime.exec(cmd);
-                stdInp = (new InputStreamReader(someProcess.getInputStream()));
-
-                // Sets the output to blank so that all previous outputs will not be concatenated
-                output = "";
                 break;
 
-            case 5:
-
-                // Creates a process for running processes
-                someRuntime = Runtime.getRuntime();
+            case Message.CURRENT_USERS:
                 cmd = "who";
-
-                // Runs the process, gets the ouptut, and prints it on the client side
-                sProcess = sRuntime.exec(cmd);
-                stdInp = (new InputStreamReader(someProcess.getInputStream()));
-
-                // Sets the output to blank so that all previous outputs will not be concatenated
-                output = "";
                 break;
 
-            case 6:
-
-                // Creates a process for running processes
-                someRuntime = Runtime.getRuntime();
+            case Message.RUNNING_PROCESSES:
                 cmd = "ps -e";
-
-                // Runs the process, gets the ouptut, and prints it on the client side
-                sProcess = sRuntime.exec(cmd);
-                stdInp = (new InputStreamReader(someProcess.getInputStream()));
-
-                // Sets the output to blank so that all previous outputs will not be concatenated
-                output = "";
                 break;
 
             case 7:
 
-                System.exit();
+                System.exit()
                 break;
 
 
         }
+
+        someRuntime = Runtime.getRuntime();
+
+        // Runs the process, gets the ouptut, and prints it on the client side
+        sProcess = sRuntime.exec(cmd);
+        stdInp = (new InputStreamReader(someProcess.getInputStream()));
+
+        // Sets the output to blank so that all previous outputs will not be concatenated
+        output = "";
     }
 }
+
+
