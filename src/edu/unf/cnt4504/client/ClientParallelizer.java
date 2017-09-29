@@ -8,7 +8,7 @@ This will encapsulate the many clients/threads.
 It should also calculate the mean server response time for a given request (requirement),
 as well as the responses for each request.
 
-Adrian Santos and Kevan Johnston
+Written by: Adrian Santos and Kevan Johnston
 */
 
 import java.lang.*;
