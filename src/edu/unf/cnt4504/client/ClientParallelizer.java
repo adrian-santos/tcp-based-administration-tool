@@ -9,6 +9,7 @@ It should also calculate the mean server response time for a given request (requ
 as well as the responses for each request.
 
 Written by: Adrian Santos and Kevan Johnston
+Date: 09/28/2017
 */
 
 import java.lang.*;
