@@ -15,6 +15,7 @@ import java.net.Socket;
 public class ChildServer implements Runnable {
 
 	final private ServerSocket socket;
+	final private Responder responder;
 	
 	/**
 	 * Constructs a new Child Server that will listen for a Client to connect on the given socket
@@ -22,6 +23,7 @@ public class ChildServer implements Runnable {
 	 */
 	public ChildServer(ServerSocket socket) {
 		this.socket = socket;
+		responder = new Responder();
 	}
 	
 	/**
@@ -39,8 +41,8 @@ public class ChildServer implements Runnable {
 			String request = in.readLine();
 			System.out.println("Server received request");
 			
-			//TODO Requires the Responder to be implemented.
-			//out.println(response)
+			String response = responder.getResponse(request);
+			out.println(response);
 			System.out.println("Server sent response");
 		} catch (IOException e){
 			e.printStackTrace();

@@ -1,7 +1,11 @@
 package edu.unf.cnt4504.client;
 
-import java.util.Scanner;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import edu.unf.cnt4504.Message;
 
 /* This is the menu for the CNT4504 group project.
  *  The project's purpose is to demonstrate client-server communication.
@@ -14,19 +18,40 @@ public class Menu {
 
 		int command = 0; // user option
 		int loop = 1; // Continue?
-		long time = 0; // mean server response time
 
 		Scanner input = new Scanner(System.in);
 
-		if (args.length == 0) {
+		if (args.length < 1) {
 			System.out.println("ERROR: no server hostname.");
 			return;
 		}// check for command line arguments
 
-		String server = args[0];
-
-		ClientParallelizer cp = new ClientParallelizer(server, 8080, 2);
-		Message msg = new Message();
+		InetAddress hostName;
+		try {
+			hostName = InetAddress.getByName(args[0]);
+		} catch (UnknownHostException e1) {
+			System.out.println("ERROR: bad server hostname.");
+			return;
+		}
+		
+		int numClients;
+		if (args.length < 2) {
+			numClients = 1; //Default to 1 client
+		} else {
+			try {
+				numClients = Integer.parseInt(args[1]);
+			} catch (NumberFormatException e) {
+				System.out.println("ERROR: bad number of clients");
+				return;
+			}
+		}
+		
+		if (numClients < 1) {
+			System.out.println("ERROR: number of clients must be positive");
+			return;
+		}
+		
+		ClientParallelizer cp = new ClientParallelizer(hostName, 8080, numClients);
 
 		do {
 			System.out.println("This is a client program that communicates with a server.");
@@ -64,45 +89,29 @@ public class Menu {
 					loop = 0;
 					continue;
 				case 1: // GET DATE AND TIME
-					cp.setRequest(msg.CURRENT_DATE_AND_TIME);
-					cp.runClients();
-					String response = cp.getResponse();
-					System.out.println(response);
+					cp.setRequest(Message.CURRENT_DATE_AND_TIME);
 					break;
 				case 2: // GET UPTIME
-					cp.setRequest(msg.UPTIME);
-					cp.runClients();
-					String response = cp.getResponse();
-					System.out.println("Uptime: " + response);
+					cp.setRequest(Message.UPTIME);
 					break;
 				case 3: // GET MEMORY USE
-					cp.setRequest(msg.MEMORY_USE);
-					cp.runClients();
-					String response = cp.getResponse();
-					System.out.println("Memory Usage: " + response);
+					cp.setRequest(Message.MEMORY_USE);
 					break;
 				case 4: // GET NETSTAT
-					cp.setRequest(msg.NETSTAT);
-					cp.runClients();
-					String response = cp.getResponse();
-					System.out.println("NETSTAT: " + response);
+					cp.setRequest(Message.NETSTAT);
 					break;
 				case 5: // GET CURRENT USERS
-					cp.setRequest(msg.CURRENT_USERS);
-					cp.runClients();
-					String response = cp.getResponse();
-					System.out.println("Current Users: " + response);
+					cp.setRequest(Message.CURRENT_USERS);
 					break;
 				case 6: // GET RUNNING PROCESSES
-					cp.setRequest(msg.RUNNING_PROCESSES);
-					cp.runClients();
-					String response = cp.getResponse();
-					System.out.println("Running Processes: " + response);
+					cp.setRequest(Message.RUNNING_PROCESSES);
 					break;
 			}
-
+			// GET SERVER RESPONSE
+			cp.runClients();
+			System.out.println(cp.getResponse());
 			// GET MEAN SERVER RESPONSE TIME.
-			System.out.println("Mean server response time: " + time);
+			System.out.println("Mean server response time: " + cp.getMeanResponseTime());
 		} while (loop == 1);// end do-while
 	}// end main
 }// end menu
