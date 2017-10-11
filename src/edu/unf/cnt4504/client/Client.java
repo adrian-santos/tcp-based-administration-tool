@@ -1,5 +1,6 @@
 package edu.unf.cnt4504.client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -52,22 +53,23 @@ public class Client implements Runnable {
 		System.out.println("Client trying to connect");
 		try (Socket socket = new Socket(hostName, port);
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			InputStreamReader in = new InputStreamReader(socket.getInputStream());
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		) {
 			//For building the server response
 			StringBuilder sb = new StringBuilder();
-			int c;
-			
-			System.out.println("Client connected to " + hostName + ":" + port);
+			char[] buffer = new char[1024];		
+			int length;	
+
+			System.out.println("Client connected to " + hostName.getHostName() + ":" + port);
 			long initialTime = System.nanoTime();
 			
 			out.println(request);
 			System.out.println("Client sent request");
 
-			while ((c = in.read()) != -1) {
-				sb.append((char)c);
+			while ((length = in.read(buffer)) > 0) {
+				sb.append(buffer, 0, length);
 			}
-
+			
 			responseTime = System.nanoTime() - initialTime;
 			response = sb.toString();
 			System.out.println("Client received response");

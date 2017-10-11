@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -14,25 +13,24 @@ import java.net.Socket;
  */
 public class ChildServer implements Runnable {
 
-	final private ServerSocket socket;
+	final private Socket client;
 	final private Responder responder;
 	
 	/**
-	 * Constructs a new Child Server that will listen for a Client to connect on the given socket
-	 * @param socket the socket to listen on
+	 * Constructs a new Child Server that will serve the client
+	 * @param client the client to serve
 	 */
-	public ChildServer(ServerSocket socket) {
-		this.socket = socket;
+	public ChildServer(Socket client) {
+		this.client = client;
 		responder = new Responder();
 	}
 	
 	/**
-	 * Listens for a connection while blocking, and then accepts a single connection and serves that Client.
+	 * Serves this child server's client.
 	 */
 	@Override
 	public void run() {
-		try (Socket client = socket.accept();
-			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+		try (PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(
 				new InputStreamReader(client.getInputStream()));
 		) {
@@ -42,10 +40,17 @@ public class ChildServer implements Runnable {
 			System.out.println("Server received request");
 			
 			String response = responder.getResponse(request);
-			out.println(response);
+			out.print(response);
+			out.flush();
 			System.out.println("Server sent response");
 		} catch (IOException e){
 			e.printStackTrace();
+		} finally {
+			try {
+				client.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		System.out.println("Server connection ended");
 	}

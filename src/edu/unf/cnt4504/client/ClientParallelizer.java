@@ -1,6 +1,8 @@
 
 package edu.unf.cnt4504.client;
 
+import java.net.InetAddress;
+
 /*
 Client Parallelizer - A class that simulates multiple clients.
 It needs to know how many clients, the hostname and port for them each to connect to.
@@ -11,35 +13,32 @@ as well as the responses for each request.
 Written by: Adrian Santos and Kevan Johnston
 Date: 09/28/2017 
 */
-
-import java.net.InetAddress;
-
 public class ClientParallelizer {
 
-    private Client[] clients;
+	private Client[] clients;
 
-    /**
-     * Constructs a new Parallelizer that will always connect to the given host and port,
-     * and will simulate the given number of clients
-     * @param hostName the host to connect to
-     * @param port the port
-     * @param numClients the number of clients to simualate
-     */
-    public ClientParallelizer(InetAddress hostName, int port, int numClients){
-    	clients = new Client[numClients];
-    	for (int i = 0; i < clients.length; i++) {
-    		clients[i] = new Client(hostName, port);
+    	/**
+     	* Constructs a new Parallelizer that will always connect to the given host and port,
+     	* and will simulate the given number of clients
+     	* @param hostName the host to connect to
+     	* @param port the port
+     	* @param numClients the number of clients to simualate
+     	*/
+    	public ClientParallelizer(InetAddress hostName, int port, int numClients){
+    		clients = new Client[numClients];
+    		for (int i = 0; i < clients.length; i++) {
+    			clients[i] = new Client(hostName, port);
+    		}
     	}
-    }
     
-    /**
-     * Configures all of the clients in this Parallelizer to make the given request
-     * @param request the request to set for all clients
-     */
+    	/**
+     	* Configures all of the clients in this Parallelizer to make the given request
+     	* @param request the request to set for all clients
+     	*/
 	public void setRequest(String request){
-        for (Client client: clients) {
-            client.setRequest(request);
-        }
+        	for (Client client: clients) {
+            		client.setRequest(request);
+        	}
 	}
 
 	/**
@@ -51,7 +50,7 @@ public class ClientParallelizer {
 		for (int i = 0; i < threads.length; i++) {
 			threads[i] = new Thread(clients[i]);
 		}
-        //Start threads
+        	//Start threads
 		for (Thread thread : threads) {
 			thread.start();
 		}
@@ -63,30 +62,29 @@ public class ClientParallelizer {
 				e.printStackTrace();
 			}
 		}
-    }
+    	}
 
 	/**
 	 * Gets the mean response time for this Parallelizer's clients, in ns
 	 * @return the mean response time in nanoseconds (ns)
 	 */
-    public long getMeanResponseTime(){
-	    long responseTime = 0;
+	public long getMeanResponseTime(){
+		long responseTime = 0;
 
-        for(Client client: clients){
-            responseTime += client.getResponseTime();
-        }
+        	for(Client client: clients){
+            		responseTime += client.getResponseTime();
+        	}
 
-        return responseTime / clients.length;
-    }
+        	return responseTime / clients.length;
+    	}
 
-    /**
-     * Gets the response from this Parallelizer
-     * @return the response from the server
-     */
-    public String getResponse(){
-    	//The parallelizer arbitrarily decides to use the very first client
-    	//as the response
-    	return clients[0].getResponse();
-    }
-
+      	/**
+     	 * Gets the response from this Parallelizer
+     	 * @return the response from the server
+	 */
+    	public String getResponse(){
+    		//The parallelizer arbitrarily decides to use the very first client
+    		//as the response
+    		return clients[0].getResponse();
+    	}
 }

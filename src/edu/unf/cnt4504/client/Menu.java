@@ -21,37 +21,51 @@ public class Menu {
 
 		Scanner input = new Scanner(System.in);
 
-		if (args.length < 1) {
-			System.out.println("ERROR: no server hostname.");
+		if (args.length < 2) {
+			System.err.println("ERROR: usage: ip port [clients]");
 			return;
 		}// check for command line arguments
 
 		InetAddress hostName;
 		try {
 			hostName = InetAddress.getByName(args[0]);
-		} catch (UnknownHostException e1) {
-			System.out.println("ERROR: bad server hostname.");
+		} catch (UnknownHostException e) {
+			System.err.println("ERROR: bad server hostname.");
 			return;
 		}
 		
+		int port;
+		try {
+			port = Integer.parseInt(args[1]);
+		} catch (NumberFormatException e) {
+			System.err.println("ERROR: bad port number!");
+			return;
+		}
+
+		//Upper bound: largest unsigned 16 bit integer
+		if (0 > port || port > ((1 << 16) - 1)) {
+			System.err.println("ERROR: port number out of range!");
+			return;
+		}
+
 		int numClients;
-		if (args.length < 2) {
+		if (args.length < 3) {
 			numClients = 1; //Default to 1 client
 		} else {
 			try {
-				numClients = Integer.parseInt(args[1]);
+				numClients = Integer.parseInt(args[2]);
 			} catch (NumberFormatException e) {
-				System.out.println("ERROR: bad number of clients");
+				System.err.println("ERROR: bad number of clients");
+				return;
+			}
+			
+			if (numClients < 1) {
+				System.err.println("ERROR: number of clients must be positive");
 				return;
 			}
 		}
 		
-		if (numClients < 1) {
-			System.out.println("ERROR: number of clients must be positive");
-			return;
-		}
-		
-		ClientParallelizer cp = new ClientParallelizer(hostName, 8080, numClients);
+		ClientParallelizer cp = new ClientParallelizer(hostName, port, numClients);
 
 		do {
 			System.out.println("This is a client program that communicates with a server.");
@@ -109,9 +123,10 @@ public class Menu {
 			}
 			// GET SERVER RESPONSE
 			cp.runClients();
-			System.out.println(cp.getResponse());
+			System.out.print(cp.getResponse());
+			System.out.flush();
 			// GET MEAN SERVER RESPONSE TIME.
-			System.out.println("Mean server response time: " + cp.getMeanResponseTime());
+			System.out.println("Mean server response time (ns): " + cp.getMeanResponseTime());
 		} while (loop == 1);// end do-while
 	}// end main
 }// end menu
