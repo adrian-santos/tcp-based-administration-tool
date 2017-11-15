@@ -29,7 +29,7 @@ public class ServerProgram {
 			return;
 		}
 		System.out.println("Began listening on port " + port + "...");
-		startIterativeServer(port);
+		startConcurrentServer(port);
 	}
 
 	private ServerProgram() {}
@@ -43,6 +43,21 @@ public class ServerProgram {
 		try (ServerSocket socket = new ServerSocket(port)) {
 			while (true) {
 				new ChildServer(socket.accept()).run();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Starts a concurrent server that will listen on the specified port
+	 * @param port the port to listen on
+	 *
+	 */
+	public static void startConcurrentServer(int port) {
+		try (ServerSocket socket = new ServerSocket(port)) {
+			while (true) {
+				new Thread(new ChildServer(socket.accept())).start();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
